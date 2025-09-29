@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QuickAid — Everyday Problem Solver</title>
+  <style>
+    /* --- Calm Theme Styles --- */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      color: #2e3d49;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin: 10px 0;
+      color: #00695c;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #455a64;
+    }
+
+    .card {
+      background: #ffffffd9;
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 500px;
+      width: 100%;
+      margin: 10px 0;
+      animation: slideUp 0.8s ease;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+    }
+
+    select, input {
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    button {
+      background: #4db6ac;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #00897b;
+    }
+
+    .solution {
+      background: #e8f5e9;
+      border-left: 5px solid #43a047;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .quote {
+      margin-top: 20px;
+      font-style: italic;
+      text-align: center;
+      color: #455a64;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes slideUp {
+      from {transform: translateY(30px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌿 QuickAid</h1>
+    <p>Find calm solutions to your everyday problems</p>
+  </header>
+
+  <div class="card">
+    <label for="category">Choose a category:</label>
+    <select id="category">
+      <option value="study">📘 Study</option>
+      <option value="health">💪 Health</option>
+      <option value="finance">💰 Finance</option>
+      <option value="tech">💻 Technology</option>
+      <option value="stress">🧘 Stress Relief</option>
+      <option value="productivity">⏳ Productivity</option>
+    </select>
+
+    <label for="problem">Describe your problem:</label>
+    <input type="text" id="problem" placeholder="e.g. I feel sleepy while studying">
+
+    <button onclick="solveProblem()">Get Solution</button>
+    
+    <div id="solutions"></div>
+  </div>
+
+  <div class="card quote" id="quote"></div>
+
+  <script>
+    const solutions = {
+      study: [
+        "Try the Pomodoro Technique (25 min study, 5 min break).",
+        "Keep your phone in another room while studying.",
+        "Use sticky notes for key points."
+      ],
+      health: [
+        "Drink a glass of water every hour.",
+        "Take a short walk after long sitting periods.",
+        "Practice deep breathing exercises."
+      ],
+      finance: [
+        "Track your expenses using a notebook or app.",
+        "Set a monthly budget and stick to it.",
+        "Save at least 10% of your income."
+      ],
+      tech: [
+        "Clear browser cache regularly.",
+        "Use strong unique passwords with a manager.",
+        "Restart your device once a week for smooth performance."
+      ],
+      stress: [
+        "Close your eyes and take 10 slow breaths.",
+        "Write your thoughts in a journal.",
+        "Listen to calm instrumental music."
+      ],
+      productivity: [
+        "Start your day with a to-do list.",
+        "Do the hardest task first.",
+        "Limit multitasking and focus on one thing."
+      ]
+    };
+
+    const quotes = [
+      "“Peace comes from within.” – Buddha",
+      "“Slow down and everything you are chasing will come around.” – John De Paola",
+      "“Calm mind brings inner strength.” – Dalai Lama",
+      "“Almost everything will work again if you unplug it for a few minutes, including you.” – Anne Lamott"
+    ];
+
+    function solveProblem() {
+      const category = document.getElementById("category").value;
+      const problem = document.getElementById("problem").value.trim();
+      const output = document.getElementById("solutions");
+      output.innerHTML = "";
+
+      if (!problem) {
+        output.innerHTML = "<p class='solution'>⚠️ Please enter your problem first.</p>";
+        return;
+      }
+
+      solutions[category].forEach(tip => {
+        const div = document.createElement("div");
+        div.className = "solution";
+        div.textContent = tip;
+        output.appendChild(div);
+      });
+    }
+
+    // Show random quote on load
+    document.getElementById("quote").textContent =
+      quotes[Math.floor(Math.random() * quotes.length)];
+  </script>
+</body>
+</html>
